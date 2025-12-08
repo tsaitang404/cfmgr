@@ -1,0 +1,12 @@
+../../../bin/pywrangler,sha256=DpKZLBPiZ40y0ALB7h1OToDbt1_GCl_P3R0o4mCUEwM,333
+pywrangler/__init__.py,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
+pywrangler/__main__.py,sha256=BnrUM7YiBmlM4HAn2MI9hP1kVNtzeK_kEgQhRy5HTq0,38
+pywrangler/cli.py,sha256=3hMjtOOib3HaTqCkuMGQe7MbBZNnim2ByHcDY4JxFlw,5091
+pywrangler/sync.py,sha256=zTX-zZ5OJ7701N07zGnE0GeSebXGeBKJlFRrhNwBy4M,9961
+pywrangler/utils.py,sha256=wfkT7GbKtgtjHXtV3AjNeb25ohdAfrprdZIlqqidiQU,3269
+workers_py-1.2.1.dist-info/INSTALLER,sha256=5hhM4Q4mYTT9z6QB6PGpUAW81PGNFrYrdXMj4oM_6ak,2
+workers_py-1.2.1.dist-info/METADATA,sha256=o50STsChreiwJ1o3SxrVVUM1vbz4yIrSPLPR495b1_s,1733
+workers_py-1.2.1.dist-info/RECORD,,
+workers_py-1.2.1.dist-info/REQUESTED,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
+workers_py-1.2.1.dist-info/WHEEL,sha256=qtCwoSJWgHk21S1Kb4ihdzI2rlJ1ZKaIurTj_ngOhyQ,87
+workers_py-1.2.1.dist-info/entry_points.txt,sha256=pt6X-Nv5-gSiKUwrnvLwzlSXs9yP37m7zdTAi8f6nAM,50

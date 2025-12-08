@@ -1,0 +1,84 @@
+Metadata-Version: 2.4
+Name: workers-py
+Version: 1.2.1
+Summary: A set of libraries and tools for Python Workers
+Project-URL: Homepage, https://github.com/cloudflare/workers-py
+Project-URL: Bug Tracker, https://github.com/cloudflare/workers-py/issues
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Requires-Dist: click<9.0.0,>=8.0.0
+Requires-Dist: pyodide-cli
+Requires-Dist: rich>=13.0.0
+Provides-Extra: build
+Requires-Dist: uv~=0.5.23; extra == 'build'
+Description-Content-Type: text/markdown
+
+# workers-py
+
+A set of libraries and tools for Python Workers.
+
+
+## Pywrangler
+
+A CLI tool for managing vendored packages in a Python Workers project.
+
+### Installation
+
+On Linux, you may be able to install the tool globally by running:
+
+```
+uv tool install workers-py
+```
+
+Alternatively, you can add `workers-py` to your pyproject.toml:
+
+```
+[dependency-groups]
+dev = ["workers-py"]
+```
+
+Then run via `uv run pywrangler`.
+
+### Usage
+
+```bash
+uv run pywrangler --help
+uv run pywrangler sync
+```
+
+### Development
+
+To run the CLI tool while developing it, use:
+
+```bash
+export REPO_ROOT=/path/to/repo
+uv run --project $REPO_ROOT $REPO_ROOT/src/pywrangler --help
+```
+
+On Linux, to install it globally, you may also be able to run:
+
+```
+uv tool install -e .
+```
+
+Alternatively, you can add `workers-py` to your pyproject.toml:
+
+```
+[dependency-groups]
+dev = ["workers-py"]
+
+[tool.uv.sources]
+workers-py = { path = "../workers-py" }
+```
+
+Then run via `uv run pywrangler`.
+
+## Tests
+
+```
+$ uv cache clean
+$ uv run pytest
+$ uv run pytest tests/test_cli.py::test_sync_command_handles_missing_pyproject -v # Specific test
+```

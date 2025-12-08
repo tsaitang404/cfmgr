@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cfmgr"
+version = "0.1.0"
+description = "Cloudflare Worker for managing D1 databases and R2 storage"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    {name = "Developer", email = "dev@example.com"}
+]
+dependencies = [
+    "workers-py>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+]
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = ["E", "F", "W", "I"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]

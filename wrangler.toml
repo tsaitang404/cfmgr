@@ -1,0 +1,15 @@
+name = "cfmgr"
+main = "src/index.py"
+compatibility_date = "2023-12-18"
+compatibility_flags = ["python_workers"]
+
+# D1 Database Binding
+[[d1_databases]]
+binding = "DB"
+database_name = "cfmgr_db"
+database_id = "ddc0012d-e8bd-4c88-a910-5491998d43bc"
+
+# R2 Bucket Binding
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "cfmgr-bucket"
