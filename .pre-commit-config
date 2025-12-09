@@ -1,0 +1,29 @@
+# Pre-commit Hook Configuration
+# 
+# 配置 Git pre-commit 钩子的行为
+
+[black]
+# Black 代码格式化
+enabled = true
+line-length = 100
+target-version = "py313"
+
+[ruff]
+# Ruff 代码检查
+enabled = true
+# 如果检查失败是否阻止提交
+blocking = true
+
+[mypy]
+# MyPy 类型检查
+enabled = true
+# 类型检查失败不阻止提交（仅警告）
+blocking = false
+
+[general]
+# 自动安装缺失的工具
+auto-install = true
+# 是否在格式化后自动 git add
+auto-add = true
+# 显示详细输出
+verbose = false

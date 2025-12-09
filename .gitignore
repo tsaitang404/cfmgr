@@ -37,3 +37,6 @@ build/
 *.wasm
 node_modules/
 .wrangler/
+
+# Wrangler configuration (contains secrets)
+wrangler.toml

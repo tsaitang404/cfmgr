@@ -5,7 +5,7 @@ import os
 
 class Config:
     """Application configuration."""
-    
+
     def __init__(self):
         self.environment = os.getenv("ENVIRONMENT", "development")
         self.d1_database_id = os.getenv("D1_DATABASE_ID")
@@ -16,7 +16,7 @@ class Config:
 
 def get_config() -> Config:
     """Get application configuration.
-    
+
     Returns:
         Config instance
     """

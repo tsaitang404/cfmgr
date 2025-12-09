@@ -26,18 +26,50 @@ dev = [
 
 [tool.black]
 line-length = 100
-target-version = ['py311']
+target-version = ['py313']
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | \.venv-workers
+  | python_modules
+  | __pycache__
+  | build
+  | dist
+)/
+'''
 
 [tool.ruff]
 line-length = 100
-target-version = "py311"
-select = ["E", "F", "W", "I"]
+target-version = "py313"
+exclude = [
+    ".git",
+    ".venv",
+    ".venv-workers",
+    "python_modules",
+    "__pycache__",
+    "build",
+    "dist",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP"]
+ignore = ["E501"]  # 忽略行长度（由 Black 处理）
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]  # 允许未使用的导入
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.13"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = false
+ignore_missing_imports = true
+exclude = [
+    "python_modules",
+    ".venv",
+    ".venv-workers",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src"]

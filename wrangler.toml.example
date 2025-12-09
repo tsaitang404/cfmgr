@@ -1,0 +1,59 @@
+# cfmgr 配置文件示例
+# 复制此文件为 wrangler.toml 并修改相应配置
+
+name = "cfmgr"
+main = "src/index.py"
+compatibility_date = "2023-12-18"
+compatibility_flags = ["python_workers"]
+
+# D1 数据库绑定
+[[d1_databases]]
+binding = "DB"
+database_name = "cfmgr_db"
+database_id = "your-d1-database-id"  # 运行 wrangler d1 create 获取
+
+# R2 存储桶绑定
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "cfmgr-bucket"  # 替换为您的 R2 bucket 名称
+
+# ==========================================
+# 认证配置（可选但强烈推荐）
+# ==========================================
+
+# 方式 1：开发环境 - 使用环境变量（vars）
+# 取消注释以启用认证
+# [vars]
+# API_KEY = "dev-test-key-12345"
+
+# 方式 2：生产环境 - 使用 Wrangler Secrets（推荐）
+# 运行命令：wrangler secret put API_KEY
+# 然后输入您的生产密钥
+
+# ==========================================
+# 认证说明
+# ==========================================
+# 
+# 如果未配置 API_KEY：
+#   - 所有端点都是公开的（任何人都可以访问）
+#   - 适合内部网络或测试环境
+#   - ⚠️  生产环境不推荐
+#
+# 如果配置了 API_KEY：
+#   - 公开路由（无需认证）：
+#     * GET /           - 服务信息
+#     * GET /health     - 健康检查
+#     * GET /docs       - API 文档首页
+#     * GET /docs/d1    - D1 数据库文档
+#     * GET /docs/r2    - R2 存储文档
+#   
+#   - 受保护路由（需要 X-API-Key header）：
+#     * POST /d1/query    - 查询数据
+#     * POST /d1/execute  - 执行 SQL
+#     * GET  /d1/tables   - 列出表
+#     * GET  /r2/list     - 列出对象
+#     * 所有其他 API 端点
+#
+# 使用示例：
+#   curl http://your-worker.workers.dev/d1/tables \
+#     -H "X-API-Key: your-api-key-here"
