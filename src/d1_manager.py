@@ -100,12 +100,25 @@ class D1Manager:
 
             duration_ms = (time.time() - start_time) * 1000
 
+            # D1 返回的 result 可能是 JS 对象或字典
+            results = []
+            if result:
+                if hasattr(result, "results"):
+                    # JsProxy 对象，需要转换为 Python
+                    js_results = result.results
+                    if hasattr(js_results, "to_py"):
+                        results = js_results.to_py()
+                    else:
+                        results = list(js_results) if js_results else []
+                elif isinstance(result, dict):
+                    results = result.get("results", [])
+
             return {
                 "success": True,
                 "data": {
-                    "results": result.get("results", []) if result else [],
+                    "results": results,
                     "meta": {
-                        "rows_read": len(result.get("results", [])) if result else 0,
+                        "rows_read": len(results),
                         "duration_ms": round(duration_ms, 2),
                         "has_more": False,  # 可根据实际情况判断
                     },
