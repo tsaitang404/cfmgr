@@ -818,10 +818,24 @@ class Default(WorkerEntrypoint):
         # D1 query endpoint
         if path == "d1/query" and request.method == "POST":
             try:
+                # Parse query parameters
+                from urllib.parse import parse_qs, urlparse
+
+                parsed = urlparse(request.url)
+                query_params = parse_qs(parsed.query)
+                database = query_params.get("database", [""])[0]
+
+                if not database:
+                    return Response(
+                        json.dumps({"success": False, "error": "Database parameter is required"}),
+                        headers={"Content-Type": "application/json"},
+                        status=400,
+                    )
+
                 body = await request.json()
                 sql = body.get("sql", "")
                 params = body.get("params", [])
-                result = await d1_manager.query(sql, params)
+                result = await d1_manager.query(database, sql, params)
                 return Response(json.dumps(result), headers={"Content-Type": "application/json"})
             except Exception as e:
                 return Response(
@@ -833,10 +847,23 @@ class Default(WorkerEntrypoint):
         # D1 execute endpoint
         if path == "d1/execute" and request.method == "POST":
             try:
+                from urllib.parse import parse_qs, urlparse
+
+                parsed = urlparse(request.url)
+                query_params = parse_qs(parsed.query)
+                database = query_params.get("database", [""])[0]
+
+                if not database:
+                    return Response(
+                        json.dumps({"success": False, "error": "Database parameter is required"}),
+                        headers={"Content-Type": "application/json"},
+                        status=400,
+                    )
+
                 body = await request.json()
                 sql = body.get("sql", "")
                 params = body.get("params", [])
-                result = await d1_manager.execute(sql, params)
+                result = await d1_manager.execute(database, sql, params)
                 return Response(json.dumps(result), headers={"Content-Type": "application/json"})
             except Exception as e:
                 return Response(
