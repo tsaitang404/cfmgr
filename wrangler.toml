@@ -13,3 +13,17 @@ database_id = "ddc0012d-e8bd-4c88-a910-5491998d43bc"
 [[r2_buckets]]
 binding = "R2"
 bucket_name = "cfmgr-bucket"
+
+# Environment Variables
+# API Key for authentication (recommended for production)
+# Uncomment to enable authentication:
+# [vars]
+# API_KEY = "your-secret-api-key-here"
+
+# For production deployment, use Wrangler secrets (more secure):
+# wrangler secret put API_KEY
+# Then input your secret API key when prompted
+
+# Note: If API_KEY is not set, all endpoints will be publicly accessible
+# Public routes (always accessible): /, /health, /docs, /docs/d1, /docs/r2
+# Protected routes (require API_KEY if set): /d1/*, /r2/*

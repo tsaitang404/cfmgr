@@ -597,6 +597,10 @@ class Default(WorkerEntrypoint):
         path = "/".join(url_parts[3:]) if len(url_parts) > 3 else ""
         path = path.split("?")[0]  # Remove query params
 
+        # Strip /api/v1/ prefix if present
+        if path.startswith("api/v1/"):
+            path = path[7:]  # Remove "api/v1/" prefix
+
         # Public routes (no authentication required)
         public_routes = ["", "health", "docs", "docs/", "docs/d1", "docs/r2"]
 
@@ -808,7 +812,7 @@ class Default(WorkerEntrypoint):
             )
 
         # Initialize managers
-        d1_manager = D1Manager(self.env.DB)
+        d1_manager = D1Manager({"cfmgr_db": self.env.DB})
         r2_manager = R2Manager(self.env.R2)
 
         # D1 query endpoint
@@ -844,7 +848,21 @@ class Default(WorkerEntrypoint):
         # D1 tables endpoint
         if path == "d1/tables" and request.method == "GET":
             try:
-                result = await d1_manager.get_tables()
+                # Get database parameter from query string
+                from urllib.parse import parse_qs, urlparse
+
+                parsed = urlparse(request.url)
+                query_params = parse_qs(parsed.query)
+                database = query_params.get("database", [""])[0]
+
+                if not database:
+                    return Response(
+                        json.dumps({"success": False, "error": "Missing 'database' parameter"}),
+                        headers={"Content-Type": "application/json"},
+                        status=400,
+                    )
+
+                result = await d1_manager.list_tables(database)
                 return Response(json.dumps(result), headers={"Content-Type": "application/json"})
             except Exception as e:
                 return Response(
